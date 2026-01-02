@@ -1,0 +1,48 @@
+<xsl:transform xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:sap="http://www.sap.com/sapxsl" version="1.0">
+  <!--<xsl:transform xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" version="1.0">-->
+  <!--<xsl:transform xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:sap="http://www.sap.com/sapxsl" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" version="1.0">-->
+  <xsl:output indent="yes" method="xml"/>
+
+  <xsl:strip-space elements="*"/>
+  <xsl:strip-space elements="*"/>
+
+  <xsl:template match="Response">
+    <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+      <asx:values>
+        <SHIPRESPONSE>
+          <STATUS>
+            <STATUS_MESSAGE>
+              <xsl:value-of select="Status/StatusMessage"/>
+            </STATUS_MESSAGE>
+          </STATUS>
+          <ACCESSTOKEN>
+            <xsl:value-of select="AccessToken"/>
+          </ACCESSTOKEN>
+          <REFRESHTOKEN>
+            <xsl:value-of select="RefreshToken"/>
+          </REFRESHTOKEN>
+        </SHIPRESPONSE>
+      </asx:values>
+    </asx:abap>
+  </xsl:template>
+
+
+
+
+
+  <xsl:template match="faultstring">
+    <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+      <asx:values>
+        <SHIPRESPONSE>
+          <ERROR>
+            <ERRORMESSAGE>
+              <xsl:value-of select="."/>
+            </ERRORMESSAGE>
+          </ERROR>
+        </SHIPRESPONSE>
+      </asx:values>
+    </asx:abap>
+  </xsl:template>
+
+
+</xsl:transform>
